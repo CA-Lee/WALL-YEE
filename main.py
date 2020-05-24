@@ -14,7 +14,7 @@ def start(message):
         chat_id=message.chat.id,
         parse_mode="Markdown",
         disable_web_page_preview=True,
-        text='你好，世界！\n\n我的原始碼: [GitHub](https://github.com/CA-Lee/WALL-YEE)'
+        text='你好，世界！\n我現在什麼都不會！\n\n我的原始碼: [GitHub](https://github.com/CA-Lee/WALL-YEE)'
         )
 
 @app.route('/' + TOKEN, methods=['POST'])

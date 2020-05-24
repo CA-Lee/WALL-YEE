@@ -8,6 +8,7 @@ WEBHOOK = os.environ.get('WEBHOOK')
 bot = telebot.TeleBot(TOKEN)
 app = Flask(__name__)
 
+bot.remove_webhook()
 bot.set_webhook(url=WEBHOOK)
 
 @bot.message_handler(commands=['start'])
@@ -28,7 +29,7 @@ def getMessage():
 '''
 @app.route("/")
 def webhook():
-    bot.remove_webhook()
+    
     bot.set_webhook(url=WEBHOOK)
     return "!", 200
 '''

@@ -17,7 +17,7 @@ def ping(message):
 @app.route('/', methods=['POST'])
 def getMessage():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
-    return 200
+    return "!", 200
 
 if __name__ == "__main__":
         app.run()

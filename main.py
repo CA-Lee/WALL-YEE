@@ -20,7 +20,7 @@ def echo_message(message):
     bot.reply_to(message, message.text)
 
 
-@app.route(WEBHOOK, methods=['POST'])
+@app.route('/' + TOKEN, methods=['POST'])
 def getMessage():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "!", 200
@@ -35,4 +35,4 @@ def webhook():
 
 
 if __name__ == "__main__":
-        app.run()
+    app.run()

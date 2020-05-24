@@ -9,8 +9,29 @@
 - 取名小幫手
     - 隨機提供三音節內的英文名子
     - 可選性別
+- 筆記本功能
+    - syntax:
+        ```
+        #note title
+        contents
+        contents
+        contents
+        ```
+    - 指令
+        - list_notes
+        - add_note
+        - delete_note
 
 ## 主線功能
+
+基本上是一個接案助理，可以幫你管理案件、提醒時程、記帳。
+
+Command list:
+
+```
+status_listall - 顯示目前所有案件階段
+status_addcase - 加入新案件
+```
 
 ### 案件進度一覽
 

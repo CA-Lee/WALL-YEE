@@ -43,7 +43,7 @@ def reply_handler(bot, update):
     update.message.reply_text(text)
 
 def start(update, callback_context):
-    update.message.reply_text("hello")
+    callback_context.message.reply_text("hello")
 
 
 @app.route('/' + TOKEN, methods=['POST'])

@@ -42,8 +42,12 @@ def reply_handler(bot, update):
     text = update.message.text
     update.message.reply_text(text)
 
-def start(update, callback_context):
-    callback_context.message.reply_text("hello")
+def start(bot, update):
+    update.message.reply_text(
+        "你好，世界！\n我現在什麼都不會！\n\n我的原始碼: [GitHub](https://github.com/CA-Lee/WALL-YEE)",
+        parse_mode="Markdown",
+        disable_web_page_preview=True
+        )
 
 
 @app.route('/' + TOKEN, methods=['POST'])

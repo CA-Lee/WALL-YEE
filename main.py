@@ -56,7 +56,7 @@ def webhook_handler():
     return 'ok'
 
 dispatcher = Dispatcher(bot, None)
-dispatcher.add_handler(MessageHandler(Filters.text, reply_handler))
+#dispatcher.add_handler(MessageHandler(Filters.text, reply_handler))
 dispatcher.add_handler(CommandHandler(['start'], start))
 
 if __name__ == "__main__":

@@ -47,7 +47,7 @@ def status_listall(bot, update):
         with conn.cursor() as cur:
             cur.execute('SELECT * FROM status;')
             conn.commit()
-            text = [str(rec) for rec in cur.fetchall() ]
+            [text += str(rec)+'\n' for rec in cur.fetchall()]
             update.message.reply_text(
                 text,
                 disable_web_page_preview=True,

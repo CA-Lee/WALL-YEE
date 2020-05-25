@@ -1,19 +1,4 @@
 '''
-def send_markdown_message(message,content):
-    bot.send_message(
-        chat_id=message.chat.id,
-        parse_mode="Markdown",
-        disable_web_page_preview=True,
-        text=content
-    )
-
-@bot.message_handler(commands=['start'])
-def start(message):
-    send_markdown_message(
-        message,
-        '你好，世界！\n我現在什麼都不會！\n\n我的原始碼: [GitHub](https://github.com/CA-Lee/WALL-YEE)'
-        )
-
 #####
 case_list = ['test']
 
@@ -31,10 +16,17 @@ def status_addcase(message):
 import telegram
 from flask import Flask, request
 from telegram.ext import Dispatcher, MessageHandler, Filters, CommandHandler
-import os
 
-TOKEN = os.environ.get('TOKEN')
+import os
+import psycopg2
+
+# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+DATABASE_URL = os.environ['DATABASE_URL']
+TOKEN = os.environ['TOKEN']
+
 app = Flask(__name__)
+
 bot = telegram.Bot(token=TOKEN)
 
 def reply_handler(bot, update):
@@ -48,8 +40,19 @@ def start(bot, update):
         parse_mode="Markdown",
         disable_web_page_preview=True,
         quote=False
-        )
+    )
 
+def status_listall(update):
+    with psycopg2.connect(DATABASE_URL, sslmode='require') as conn:
+        with conn.cursor() as cur:
+            cur.execute('SELECT * FROM status;')
+            conn.commit()
+            text = [str(rec) for rec in cur.fetchall() ]
+            update.message.reply_text(
+                text,
+                disable_web_page_preview=True,
+                quote=False
+            )
 
 @app.route('/' + TOKEN, methods=['POST'])
 def webhook_handler():
@@ -63,6 +66,7 @@ def webhook_handler():
 dispatcher = Dispatcher(bot, None)
 #dispatcher.add_handler(MessageHandler(Filters.text, reply_handler))
 dispatcher.add_handler(CommandHandler(['start'], start))
+dispatcher.add_handler(CommandHandler(['status_listall'], status_listall))
 
 if __name__ == "__main__":
 

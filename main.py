@@ -46,7 +46,8 @@ def start(bot, update):
     update.message.reply_text(
         "你好，世界！\n我現在什麼都不會！\n\n我的原始碼: [GitHub](https://github.com/CA-Lee/WALL-YEE)",
         parse_mode="Markdown",
-        disable_web_page_preview=True
+        disable_web_page_preview=True,
+        quote=False
         )
 
 

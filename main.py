@@ -30,7 +30,7 @@ def status_addcase(message):
 '''
 import telegram
 from flask import Flask, request
-from telegram.ext import Dispatcher, MessageHandler, Filters
+from telegram.ext import Dispatcher, MessageHandler, Filters, CommandHandler
 import os
 
 TOKEN = os.environ.get('TOKEN')

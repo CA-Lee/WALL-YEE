@@ -34,7 +34,6 @@ from telegram.ext import Dispatcher, MessageHandler, Filters
 import os
 
 TOKEN = os.environ.get('TOKEN')
-WEBHOOK = os.environ.get('WEBHOOK')
 
 # Initial Flask app
 app = Flask(__name__)

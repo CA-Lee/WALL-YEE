@@ -34,12 +34,16 @@ from telegram.ext import Dispatcher, MessageHandler, Filters
 import os
 
 TOKEN = os.environ.get('TOKEN')
-
-# Initial Flask app
 app = Flask(__name__)
-
-# Initial bot by Telegram access token
 bot = telegram.Bot(token=TOKEN)
+
+def reply_handler(bot, update):
+    """Reply message."""
+    text = update.message.text
+    update.message.reply_text(text)
+
+def start(update, callback_context):
+    update.message.reply_text("hello")
 
 
 @app.route('/' + TOKEN, methods=['POST'])
@@ -48,24 +52,13 @@ def webhook_handler():
     if request.method == "POST":
         update = telegram.Update.de_json(request.get_json(force=True), bot)
 
-        # Update dispatcher process that handler to process this message
         dispatcher.process_update(update)
     return 'ok'
 
-
-def reply_handler(bot, update):
-    """Reply message."""
-    text = update.message.text
-    update.message.reply_text(text)
-
-
-# New a dispatcher for bot
 dispatcher = Dispatcher(bot, None)
-
-# Add handler for handling message, there are many kinds of message. For this handler, it particular handle text
-# message.
 dispatcher.add_handler(MessageHandler(Filters.text, reply_handler))
+dispatcher.add_handler(CommandHandler(['start'], start))
 
 if __name__ == "__main__":
-    # Running server
+
     app.run()

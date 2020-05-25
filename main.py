@@ -31,6 +31,10 @@ def status_listall(message):
     reply_text = [(str(case) + '\n') for case in case_list]
     send_markdown_message(message,reply_text)
 
+@bot.message_handler(commands=['status_addcase'])
+def status_addcase(message):
+    reply_text = [(str(arg) + '\n') for arg in message.text.split()]
+    send_markdown_message(message,reply_text)
 #####
 
 @app.route('/' + TOKEN, methods=['POST'])

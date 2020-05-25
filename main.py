@@ -42,7 +42,7 @@ def start(bot, update):
         quote=False
     )
 
-def status_listall(update):
+def status_listall(bot, update):
     with psycopg2.connect(DATABASE_URL, sslmode='require') as conn:
         with conn.cursor() as cur:
             cur.execute('SELECT * FROM status;')

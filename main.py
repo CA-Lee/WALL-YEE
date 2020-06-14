@@ -58,7 +58,7 @@ def webhook_handler():
     return 'ok'
 
 
-dispatcher = Dispatcher(bot, use_context=True)
+dispatcher = Dispatcher(bot, None, use_context=True)
 #dispatcher.add_handler(MessageHandler(Filters.text, reply_handler))
 dispatcher.add_handler(CommandHandler(['start'], start))
 dispatcher.add_handler(CommandHandler(['status_listall'], status_listall))

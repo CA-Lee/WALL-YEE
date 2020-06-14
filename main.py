@@ -1,18 +1,3 @@
-'''
-#####
-case_list = ['test']
-
-@bot.message_handler(commands=['status_listall'])
-def status_listall(message):
-    reply_text = [(str(case) + '\n') for case in case_list]
-    send_markdown_message(message,reply_text)
-
-@bot.message_handler(commands=['status_addcase'])
-def status_addcase(message):
-    reply_text = [(str(arg) + '\n') for arg in message.text.split()]
-    send_markdown_message(message,str(message.text))
-#####
-'''
 import telegram
 from flask import Flask, request
 from telegram.ext import Dispatcher, MessageHandler, Filters, CommandHandler
@@ -45,15 +30,20 @@ def start(bot, update):
 
 
 def status_listall(bot, update):
-    with psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require') as conn:
+    with psycopg2.connect(DATABASE_URL, sslmode='require') as conn:
         with conn.cursor() as cur:
             cur.execute('SELECT * FROM case_status;')
             conn.commit()
-            text = 'SQL done.'
+            # id, status, case_name, case_url
+            status_emoji = ['👀','💼','💬','📝']
+            text = ""
             for rec in cur.fetchall():
-                text += str(rec) + str(type(rec)) + '\n'
+                text += status_emoji[rec[1]]
+                text += '[{}]({})'.format(rec[2],rec[3])
+                text += '\n'
             update.message.reply_text(
                 text,
+                parse_mode="Markdown",
                 disable_web_page_preview=True,
                 quote=False
             )

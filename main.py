@@ -4,8 +4,7 @@ from telegram.ext import Dispatcher, MessageHandler, Filters, CommandHandler
 
 import os
 import psycopg2
-
-# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+from base64 import *
 
 TOKEN = os.environ['TOKEN']
 
@@ -38,7 +37,7 @@ def status_listall(bot, update):
             text = ""
             for rec in cur.fetchall():
                 text += status_emoji[rec[1]] + ' '
-                text += '[{}]({})'.format(rec[2], rec[3])
+                text += '[{}]({})'.format(b64decode(rec[2]).decode(), b64decode(rec[3]).decode())
                 text += '\n'
             update.message.reply_text(
                 text,

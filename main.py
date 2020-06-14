@@ -42,7 +42,7 @@ def status_listall(update, context ):
 def status_addcase(update, context):
     with psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require') as conn:
         with conn.cursor() as cur:
-            cur.execute('insert into case_status (name, url) values (\'{}\',\'{}\');'.format(b64encode(update.args[0].encode()).decode(), b64encode(update.args[1].encode()).decode()))
+            cur.execute('insert into case_status (name, url) values (\'{}\',\'{}\');'.format(b64encode(context.args[0].encode()).decode(), b64encode(context.args[1].encode()).decode()))
     update.message.reply_text(
         '成功新增案件，{} 辛苦了❤️'.format(update.message.from_user.full_name),
         quote=False

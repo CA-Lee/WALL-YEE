@@ -47,13 +47,11 @@ def status_listall(bot, update):
             )
 
 def status_addcase(bot, update):
-    with psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require') as conn:
-        with conn.cursor() as cur:
-            cur.execute('insert into case_status (name, url) values (\'{}\',\'{}\');'.format(b64encode(update.args[0].encode()).decode(), b64encode(update.args[1].encode()).decode()))
-    first_name = update.message.from_user.first_name
-    last_name = update.message.from_user.last_name
+#    with psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require') as conn:
+#        with conn.cursor() as cur:
+#            cur.execute('insert into case_status (name, url) values (\'{}\',\'{}\');'.format(b64encode(update.args[0].encode()).decode(), b64encode(update.args[1].encode()).decode()))
     update.message.reply_text(
-        '成功新增案件，{} {} 辛苦了❤️'.format(first_name, last_name),
+        '成功新增案件，{} 辛苦了❤️\n {} {} {} {}'.format(update.message.from_user.full_name, update.args[0], update.args[1], type(bot), type(update)),
         quote=False
     )
     #status_listall(bot, update)

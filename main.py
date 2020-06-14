@@ -46,6 +46,17 @@ def status_listall(bot, update):
                 quote=False
             )
 
+def status_addcase(bot, update):
+    with psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require') as conn:
+        with conn.cursor() as cur:
+            cur.execute('insert into case_status (name, url) values ("{}","{}");'.format(b64encode(update.args[0].encode()).decode(), b64encode(update.args[1].encode()).decode()))
+    first_name = update.message.from_user.first_name
+    last_name = update.message.from_user.last_name
+    update.message.reply_text(
+        '成功新增案件，{} {} 辛苦了❤️'.format(first_name, last_name),
+        quote=False
+    )
+    status_listall(bot, update)
 
 @app.route('/' + TOKEN, methods=['POST'])
 def webhook_handler():
@@ -60,6 +71,7 @@ dispatcher = Dispatcher(bot, None)
 #dispatcher.add_handler(MessageHandler(Filters.text, reply_handler))
 dispatcher.add_handler(CommandHandler(['start'], start))
 dispatcher.add_handler(CommandHandler(['status_listall'], status_listall))
+dispatcher.add_handler(CommandHandler(['status_addcase'], status_addcase))
 
 if __name__ == "__main__":
 

@@ -51,7 +51,7 @@ def status_listall(bot, update):
             conn.commit()
             text = 'SQL done.'
             for rec in cur.fetchall():
-                text += str(rec) + type(rec) + '\n'
+                text += str(rec) + str(type(rec)) + '\n'
             update.message.reply_text(
                 text,
                 disable_web_page_preview=True,

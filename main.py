@@ -46,7 +46,7 @@ def start(bot, update):
 
 
 def status_listall(bot, update):
-    with psycopg2.connect(DATABASE_URL, sslmode='require') as conn:
+    '''with psycopg2.connect(DATABASE_URL, sslmode='require') as conn:
         with conn.cursor() as cur:
             cur.execute('SELECT * FROM case_status;')
             conn.commit()
@@ -57,7 +57,7 @@ def status_listall(bot, update):
                 text,
                 disable_web_page_preview=True,
                 quote=False
-            )
+            )'''
     update.message.reply_text(
         'SQLServer is fail.',
         disable_web_page_preview=True,

@@ -49,7 +49,7 @@ def status_listall(bot, update):
         with conn.cursor() as cur:
             cur.execute('SELECT * FROM case_status;')
             conn.commit()
-            text = ""
+            text = 'SQL done.'
             for rec in cur.fetchall():
                 text += str(rec) + type(rec) + '\n'
             update.message.reply_text(
@@ -57,11 +57,6 @@ def status_listall(bot, update):
                 disable_web_page_preview=True,
                 quote=False
             )
-    update.message.reply_text(
-        'SQLServer is fail.',
-        disable_web_page_preview=True,
-        quote=False
-    )
 
 
 @app.route('/' + TOKEN, methods=['POST'])

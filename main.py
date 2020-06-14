@@ -33,7 +33,6 @@ def status_listall(bot, update):
     with psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require') as conn:
         with conn.cursor() as cur:
             cur.execute('SELECT * FROM case_status;')
-            conn.commit()
             # id, status, case_name, case_url
             status_emoji = ['👀', '💼', '💬', '📝']
             text = ""

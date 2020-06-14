@@ -35,11 +35,11 @@ def status_listall(bot, update):
             cur.execute('SELECT * FROM case_status;')
             conn.commit()
             # id, status, case_name, case_url
-            status_emoji = ['👀','💼','💬','📝']
+            status_emoji = ['👀', '💼', '💬', '📝']
             text = ""
             for rec in cur.fetchall():
-                text += status_emoji[rec[1]]
-                text += '[{}]({})'.format(rec[2],rec[3])
+                text += status_emoji[rec[1]] + ' '
+                text += '[{}]({})'.format(rec[2], rec[3])
                 text += '\n'
             update.message.reply_text(
                 text,
@@ -54,7 +54,6 @@ def webhook_handler():
     """Set route /hook with POST method will trigger this method."""
     if request.method == "POST":
         update = telegram.Update.de_json(request.get_json(force=True), bot)
-
         dispatcher.process_update(update)
     return 'ok'
 

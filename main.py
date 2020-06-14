@@ -14,7 +14,7 @@ bot = telegram.Bot(token=TOKEN)
 
 def start(update, context):
     update.message.reply_text(
-        "你好，世界！\n我現在什麼都不會！\n\n我的原始碼: [GitHub](https://github.com/CA-Lee/WALL-YEE)",
+        "你好，世界！\n\n我的原始碼：[GitHub](https://github.com/CA-Lee/WALL-YEE)\n我的故事：[TGbot - WALL YEE](https://hackmd.io/@CALee-Studio/WALL-YEE)",
         parse_mode="Markdown",
         disable_web_page_preview=True,
         quote=False

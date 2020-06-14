@@ -29,10 +29,12 @@ app = Flask(__name__)
 
 bot = telegram.Bot(token=TOKEN)
 
+
 def reply_handler(bot, update):
     """Reply message."""
     text = update.message.text
     update.message.reply_text(text)
+
 
 def start(bot, update):
     update.message.reply_text(
@@ -41,6 +43,7 @@ def start(bot, update):
         disable_web_page_preview=True,
         quote=False
     )
+
 
 def status_listall(bot, update):
     with psycopg2.connect(DATABASE_URL, sslmode='require') as conn:
@@ -55,6 +58,12 @@ def status_listall(bot, update):
                 disable_web_page_preview=True,
                 quote=False
             )
+    update.message.reply_text(
+        'SQLServer is fail.',
+        disable_web_page_preview=True,
+        quote=False
+    )
+
 
 @app.route('/' + TOKEN, methods=['POST'])
 def webhook_handler():
@@ -64,6 +73,7 @@ def webhook_handler():
 
         dispatcher.process_update(update)
     return 'ok'
+
 
 dispatcher = Dispatcher(bot, None)
 #dispatcher.add_handler(MessageHandler(Filters.text, reply_handler))

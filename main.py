@@ -56,7 +56,7 @@ def status_addcase(bot, update):
         '成功新增案件，{} {} 辛苦了❤️'.format(first_name, last_name),
         quote=False
     )
-    status_listall(bot, update)
+    #status_listall(bot, update)
 
 @app.route('/' + TOKEN, methods=['POST'])
 def webhook_handler():

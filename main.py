@@ -12,14 +12,7 @@ app = Flask(__name__)
 
 bot = telegram.Bot(token=TOKEN)
 
-
-def reply_handler(bot, update):
-    """Reply message."""
-    text = update.message.text
-    update.message.reply_text(text)
-
-
-def start(bot, update):
+def start(update, context):
     update.message.reply_text(
         "你好，世界！\n我現在什麼都不會！\n\n我的原始碼: [GitHub](https://github.com/CA-Lee/WALL-YEE)",
         parse_mode="Markdown",
@@ -28,7 +21,7 @@ def start(bot, update):
     )
 
 
-def status_listall(bot, update):
+def status_listall(update, context ):
     with psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require') as conn:
         with conn.cursor() as cur:
             cur.execute('SELECT * FROM case_status;')
@@ -46,12 +39,12 @@ def status_listall(bot, update):
                 quote=False
             )
 
-def status_addcase(bot, update, args):
+def status_addcase(update, context):
 #    with psycopg2.connect(os.environ['DATABASE_URL'], sslmode='require') as conn:
 #        with conn.cursor() as cur:
 #            cur.execute('insert into case_status (name, url) values (\'{}\',\'{}\');'.format(b64encode(update.args[0].encode()).decode(), b64encode(update.args[1].encode()).decode()))
     update.message.reply_text(
-        '成功新增案件，辛苦了❤️\n {} {} {} {}'.format( args[0], args[1], type(bot), type(update)),
+        '成功新增案件，辛苦了❤️\n {} {} {}'.format( type(context.args), type(bot), type(update)),
         quote=False
     )
     #status_listall(bot, update)
@@ -65,7 +58,7 @@ def webhook_handler():
     return 'ok'
 
 
-dispatcher = Dispatcher(bot, None)
+dispatcher = Dispatcher(bot, use_context=True)
 #dispatcher.add_handler(MessageHandler(Filters.text, reply_handler))
 dispatcher.add_handler(CommandHandler(['start'], start))
 dispatcher.add_handler(CommandHandler(['status_listall'], status_listall))

@@ -45,11 +45,11 @@ def start(bot, update):
 def status_listall(bot, update):
     with psycopg2.connect(DATABASE_URL, sslmode='require') as conn:
         with conn.cursor() as cur:
-            cur.execute('SELECT * FROM status;')
+            cur.execute('SELECT * FROM case_status;')
             conn.commit()
             text = ""
             for rec in cur.fetchall():
-                text += str(rec) + '\n'
+                text += str(rec) + type(rec) + '\n'
             update.message.reply_text(
                 text,
                 disable_web_page_preview=True,

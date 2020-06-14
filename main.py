@@ -44,7 +44,7 @@ def status_addcase(update, context):
 #        with conn.cursor() as cur:
 #            cur.execute('insert into case_status (name, url) values (\'{}\',\'{}\');'.format(b64encode(update.args[0].encode()).decode(), b64encode(update.args[1].encode()).decode()))
     update.message.reply_text(
-        '成功新增案件，辛苦了❤️\n {} {} {}'.format( type(context.args), type(bot), type(update)),
+        '成功新增案件，辛苦了❤️\n {} {} {}'.format(update.message.from_user.full_name, context.args[0], context.args[1]),
         quote=False
     )
     #status_listall(bot, update)
